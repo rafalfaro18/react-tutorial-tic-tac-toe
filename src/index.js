@@ -11,7 +11,7 @@ class Square extends React.Component {
     }
     render() {
       return (
-        <button className="square" onClick = {() => this.setState({value: 'X'})}>
+        <button className="square" data-id={this.props.value} onClick = {() => this.setState({value: 'X'})}>
           {this.state.value}
         </button>
       );
@@ -22,6 +22,31 @@ class Square extends React.Component {
     renderSquare(i) {
       return <Square value={i} />;
     }
+
+    renderRowSquares(start, end){
+      let rows = []
+      for(let i=start; i<end; i++){
+        rows.push(this.renderSquare(i) )
+      }
+      return rows
+    }
+
+    renderRow(start, end){
+      return (
+        <div className="board-row">
+            {this.renderRowSquares(start, end)}
+        </div>
+      );
+    }
+
+    renderSquares(amount = 3){
+      let rows = []
+      for(let i=1 ; i<= 3; i++){
+        rows.push(this.renderRow(3*i-3,3*i))
+      }
+      
+      return rows
+    }
   
     render() {
       const status = 'Next player: X';
@@ -29,21 +54,7 @@ class Square extends React.Component {
       return (
         <div>
           <div className="status">{status}</div>
-          <div className="board-row">
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-          </div>
-          <div className="board-row">
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
-          </div>
+          {this.renderSquares()}        
         </div>
       );
     }
