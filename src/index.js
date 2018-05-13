@@ -16,7 +16,7 @@ class Square extends React.Component {
     constructor (props) {
       super(props);
       this.state = {
-        squares: Array(9).fill(null),
+        squares: Array(this.props.boardsize).fill(null),
       };
     }
 
@@ -48,8 +48,9 @@ class Square extends React.Component {
       );
     }
 
-    renderSquares(amount = 3){
+    renderSquares(){
       let rows = []
+      let amount = this.props.boardsize
       for(let i=1 ; i<= amount; i++){
         rows.push(this.renderRow(amount*i-amount,amount*i))
       }
@@ -74,7 +75,7 @@ class Square extends React.Component {
       return (
         <div className="game">
           <div className="game-board">
-            <Board />
+            <Board boardsize = '3'/>
           </div>
           <div className="game-info">
             <div>{/* status */}</div>
